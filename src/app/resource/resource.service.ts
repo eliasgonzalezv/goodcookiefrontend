@@ -27,7 +27,7 @@ export class ResourceService {
    */
   getPhrase(): Promise<Phrase> {
     return this.httpClient
-      .get<Phrase>('http://localhost:8080/api/resource/phrase')
+      .get<Phrase>(this.baseUrl + 'api/resource/phrase')
       .toPromise();
   }
 
