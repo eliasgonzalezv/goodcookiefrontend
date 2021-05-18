@@ -10,12 +10,16 @@ import { EventEmitter } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ForgotPasswordRequest } from 'src/app/models/forgotPassword.request.payload';
 import { UpdatePasswordRequest } from 'src/app/models/updatePassword.request.payload';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 /* Service class that performs authentication calls to backend */
 export class AuthService {
+  //backend url
+  baseUrl = environment.baseUrl;
+
   //loggedIn as output
   @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
   @Output() username: EventEmitter<string> = new EventEmitter();
@@ -73,7 +77,7 @@ export class AuthService {
     //Make refresh token request
     return this.httpClient
       .post<LoginResponse>(
-        'http://localhost:8080/api/auth/refresh/token',
+        this.baseUrl + 'api/auth/refresh/token',
         refreshTokenPayload
       )
       .pipe(
@@ -99,7 +103,7 @@ export class AuthService {
   register(registerRequestPayload: RegisterRequestPayload): Observable<any> {
     //Perform post request to backend in order to register user
     return this.httpClient.post(
-      'http://localhost:8080/api/auth/register',
+      this.baseUrl + 'api/auth/register',
       registerRequestPayload,
       { responseType: 'text' }
     );
@@ -113,10 +117,7 @@ export class AuthService {
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
     //Perform post request to backend
     return this.httpClient
-      .post<LoginResponse>(
-        'http://localhost:8080/api/auth/login',
-        loginRequestPayload
-      )
+      .post<LoginResponse>(this.baseUrl + 'api/auth/login', loginRequestPayload)
       .pipe(
         //Map the response to browsers local storage
         map((data) => {
@@ -145,7 +146,7 @@ export class AuthService {
   logout() {
     //Perform logout call to backend
     this.httpClient
-      .post('http://localhost:8080/api/auth/logout', this.refreshTokenPayload, {
+      .post(this.baseUrl + 'api/auth/logout', this.refreshTokenPayload, {
         responseType: 'text',
       })
       .subscribe(
@@ -172,7 +173,7 @@ export class AuthService {
     forgotPasswordRequest: ForgotPasswordRequest
   ): Observable<any> {
     return this.httpClient.post(
-      'http://localhost:8080/api/auth/forgot',
+      this.baseUrl + 'api/auth/forgot',
       forgotPasswordRequest,
       { responseType: 'text' }
     );
@@ -185,7 +186,7 @@ export class AuthService {
    */
   validatePasswordResetToken(token: string): Observable<any> {
     return this.httpClient.post(
-      'http://localhost:8080/api/auth/validatePasswordToken/' + token,
+      this.baseUrl + 'api/auth/validatePasswordToken/' + token,
       null,
       { responseType: 'text' }
     );
@@ -198,7 +199,7 @@ export class AuthService {
    */
   updatePassword(updatePasswordRequest: UpdatePasswordRequest) {
     return this.httpClient.put(
-      'http://localhost:8080/api/auth/updatePassword',
+      this.baseUrl + 'api/auth/updatePassword',
       updatePasswordRequest,
       { responseType: 'text' }
     );

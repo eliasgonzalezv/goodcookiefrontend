@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HitCanvas } from 'konva/types/Canvas';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import { AuthService } from '../auth/shared/auth.service';
 import { Journal } from '../models/journal-model';
@@ -12,6 +13,9 @@ import { SaveJournalRequest } from './saveJournal.request.payload';
   providedIn: 'root',
 })
 export class ResourceService {
+  //URL of backend
+  baseUrl = environment.baseUrl;
+
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService
@@ -34,7 +38,7 @@ export class ResourceService {
    */
   saveJournal(saveJournalRequest: SaveJournalRequest): Observable<any> {
     return this.httpClient.post(
-      'http://localhost:8080/api/resource/saveJournal',
+      this.baseUrl + 'api/resource/saveJournal',
       saveJournalRequest,
       { responseType: 'text' }
     );
@@ -48,7 +52,7 @@ export class ResourceService {
    */
   getJournals(username: string): Observable<Journal[]> {
     return this.httpClient.get<Journal[]>(
-      'http://localhost:8080/api/resource/getJournals/' + username
+      this.baseUrl + 'api/resource/getJournals/' + username
     );
   }
 
@@ -60,7 +64,7 @@ export class ResourceService {
   deleteJournals(journalList: Journal[]): Observable<any> {
     return this.httpClient.request(
       'DELETE',
-      'http://localhost:8080/api/resource/deleteJournalList/',
+      this.baseUrl + 'api/resource/deleteJournalList/',
       { body: journalList, responseType: 'text' }
     );
   }
