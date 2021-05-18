@@ -1,0 +1,70 @@
+<!-- TODO: This should be a modal form in the page -->
+<!-- TODO: Invalidate form until all fields are complete -->
+<!-- TODO: Do this as well for register form -->
+<!-- Login Page -->
+<form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+  <h1 class="h3 mb-3 font-weight-normal">Please log in.</h1>
+  <!-- Error alert -->
+  <div
+    *ngIf="this.isError && this.message.length > 0"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong>{{ this.message }}</strong> Please try again. Don't have an account?
+    <a routerLink="/register">Register</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <label for="inputUsername" class="sr-only">Username</label>
+  <input
+    type="text"
+    [formControlName]="'username'"
+    id="inputUsername"
+    class="form-control middle"
+    placeholder="Username"
+    required="true"
+  />
+  <!-- Validate input -->
+  <span
+    *ngIf="
+      !loginForm.get('username').valid && loginForm.get('username').touched
+    "
+    class="text-danger"
+  >
+    Please provide a valid username.
+  </span>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input
+    type="password"
+    [formControlName]="'password'"
+    id="inputPassword"
+    class="form-control bottom"
+    placeholder="Password"
+    required="true"
+  />
+  <!-- Validate input -->
+  <span
+    *ngIf="
+      !loginForm.get('password').valid && loginForm.get('password').touched
+    "
+    class="text-danger"
+  >
+    Password cannot be empty.
+  </span>
+  <button
+    class="btn btn-lg btn-primary btn-block"
+    type="submit"
+    [disabled]="this.loginForm.invalid"
+  >
+    Login
+  </button>
+  <!-- TODO: Style this message and display it as an alert
+  <div class="login-failed" *ngIf="this.isError">
+    <p class="login-failed-text">
+      Login failed. Incorrect username or password.
+    </p>
+  </div> -->
+  <!-- TODO Implement forgot password -->
+  <a routerLink="/forgot">Forgot Password?</a>
+</form>

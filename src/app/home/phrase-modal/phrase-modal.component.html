@@ -1,0 +1,44 @@
+<div class="modal-header">
+  <h4 class="modal-title">Your Phrase...</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <blockquote class="blockquote mb-0">
+    <p class="fb-quotable">{{ quote }}</p>
+    <footer class="blockquote-footer">{{ author }}</footer>
+  </blockquote>
+</div>
+<div class="modal-footer">
+  <a
+    class="twitter-share-button"
+    href="{{
+      'https://twitter.com/intent/tweet?text=' + quote + ' -' + author
+    }}"
+    rel="noopener noreferrer"
+    target="_blank"
+    data-size="large"
+  >
+    Tweet</a
+  >
+  <a
+    routerLink="/journal"
+    title="Journal your thoughts about this phrase!"
+    (click)="activeModal.dismiss('Link click')"
+  >
+    Journal
+  </a>
+  <!-- <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.close('Close click')"
+  >
+    Close
+  </button> -->
+</div>

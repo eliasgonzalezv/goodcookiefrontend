@@ -1,0 +1,61 @@
+<div class="btn-toolbar" role="toolbar">
+  <div class="btn-group btn-group-sm mx-auto">
+    <button
+      name="line-black"
+      class="btn btn-secondary"
+      (click)="setSelection('lineBlack'); addShape('lineBlack'); erase = false"
+    >
+      Black Pen
+    </button>
+    <button
+      name="line-red"
+      class="btn btn-secondary"
+      (click)="setSelection('lineRed'); addShape('lineRed'); erase = false"
+    >
+      Red Pen
+    </button>
+    <button
+      name="line-blue"
+      class="btn btn-secondary"
+      (click)="setSelection('lineBlue'); addShape('lineBlue'); erase = false"
+    >
+      Blue Pen
+    </button>
+    <button
+      class="btn btn-secondary"
+      (click)="clearSelection(); setSelection('erase'); erase = true"
+    >
+      Eraser
+    </button>
+
+    <button
+      class="btn btn-secondary"
+      (click)="setSelection('text'); addShape('text')"
+    >
+      Text
+    </button>
+    <button
+      class="btn btn-secondary"
+      (click)="clearSelection(); setSelection('undo'); undo()"
+    >
+      Undo
+    </button>
+    <button
+      class="btn btn-secondary"
+      (click)="clearSelection(); setSelection('clear'); clear()"
+    >
+      Clear
+    </button>
+    <!-- disable button if user is not logged in, or display -->
+    <!-- tooltip indicating user should log in -->
+    <button
+      class="btn btn-secondary"
+      [disabled]="!userLoggedIn ? true : false"
+      (click)="clearSelection(); setSelection('save'); saveJournal()"
+      title="Log in to save your journal!"
+    >
+      Save
+    </button>
+  </div>
+</div>
+<div id="canvasContainer" class="d-flex justify-content-center"></div>

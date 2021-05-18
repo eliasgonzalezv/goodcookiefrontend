@@ -1,0 +1,65 @@
+<div class="mt-3">
+  <h1>
+    <em
+      ><b>{{ username }}'s </b></em
+    >
+    Saved Journals:
+  </h1>
+</div>
+<div class="mt-3 mb-3">
+  <button
+    *ngIf="this.journalLength > 0"
+    class="btn btn-danger d-block mx-auto"
+    [disabled]="this.selectedJournals.length === 0 ? true : false"
+    title="This action cannot be undone"
+    (click)="deleteJournals()"
+  >
+    Delete Selected
+  </button>
+</div>
+
+<div *ngIf="this.journalLength > 0" class="row row-cols-1 row-cols-md-3">
+  <div class="col mb-4" *ngFor="let journal of this.journals; let i = index">
+    <div class="card bg-light h-100" id="{{ 'card-' + i }}">
+      <input
+        type="checkbox"
+        [id]="'cb-' + i"
+        class=""
+        (click)="selectJournal('cb-' + i)"
+      />
+      <img
+        [id]="'img-' + i"
+        src="{{ journal.journalUrl }}"
+        class="card-img-top"
+        alt=""
+      />
+      <div class="card-body">
+        <h5 class="card-title">Journal {{ i + 1 }}</h5>
+        <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
+        <!-- <p class="card-text">
+        <small class="text-muted"
+          >Created on: {{ journal.journalCreatedDate }}</small
+        >
+      </p> -->
+      </div>
+      <div class="card-footer">
+        <button
+          [id]="'btn-' + i"
+          class="btn btn-primary"
+          (click)="downloadJournalImage('img-' + i, 'btn-' + i)"
+        >
+          <!-- <a href="{{ journal.journalUrl }}" download="{{ 'journal' + i }}"></a -->
+          Download
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Placeholder in case the user has not yet saved any journals -->
+<ng-container *ngIf="this.journalLength == 0">
+  <p>
+    Looks like you don't have any journals saved, head over to
+    <a routerLink="/journal">Journal</a> and save your first journal!
+  </p>
+</ng-container>

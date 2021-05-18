@@ -1,0 +1,100 @@
+<!-- Register page -->
+<form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
+  <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+  <!-- Error alert -->
+  <div
+    *ngIf="this.isError && this.message.length > 0"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong>{{ this.message }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input
+    type="email"
+    [formControlName]="'email'"
+    id="inputEmail"
+    class="form-control top"
+    placeholder="Email address"
+    required="true"
+  />
+  <!-- Validate input -->
+  <span
+    *ngIf="
+      !registerForm.get('email').valid && registerForm.get('email').touched
+    "
+    class="text-danger"
+  >
+    Please provide a valid email.
+  </span>
+  <label for="inputUsername" class="sr-only">Username</label>
+  <input
+    type="text"
+    [formControlName]="'username'"
+    id="inputUsername"
+    class="form-control middle"
+    placeholder="Username"
+    required="true"
+  />
+  <!-- Validate input -->
+  <span
+    *ngIf="
+      !registerForm.get('username').valid &&
+      registerForm.get('username').touched
+    "
+    class="text-danger"
+  >
+    Please provide a valid username.
+  </span>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input
+    type="password"
+    [formControlName]="'password'"
+    id="inputPassword"
+    class="form-control middle"
+    placeholder="Password"
+    required="true"
+  />
+  <!-- Validate input -->
+  <span
+    *ngIf="
+      !registerForm.get('password').valid &&
+      registerForm.get('password').touched
+    "
+    class="text-danger"
+  >
+    Please provide a valid password.
+  </span>
+  <label for="inputPassword2" class="sr-only">Password</label>
+  <input
+    type="password"
+    [formControlName]="'passwordMatch'"
+    id="inputPassword2"
+    class="form-control bottom"
+    placeholder="Repeat your password"
+    required="true"
+  />
+  <!-- Validate input -->
+  <span
+    *ngIf="
+      (registerForm.get('passwordMatch').touched &&
+        !registerForm.get('passwordMatch').valid) ||
+      (registerForm.get('passwordMatch').valid &&
+        registerForm.get('passwordMatch').value !==
+          registerForm.get('password').value)
+    "
+    class="text-danger"
+  >
+    Passwords Don't Match.
+  </span>
+  <button
+    class="btn btn-lg btn-primary btn-block"
+    type="submit"
+    [disabled]="this.registerForm.invalid"
+  >
+    Register
+  </button>
+</form>

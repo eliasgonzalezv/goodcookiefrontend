@@ -1,0 +1,47 @@
+<!-- Global header for all pages of the site -->
+<header>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">GoodCookie!</a>
+    <!-- NavBar toggle for mobile devices -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- Navbar links -->
+        <a class="nav-item nav-link active" href=""
+          >Home <span class="sr-only">(current)</span></a
+        >
+        <a class="nav-item nav-link" href="/journal">Journal</a>
+        <!-- Dropdown for when user is logged in -->
+        <div *ngIf="isLoggedIn" ngbDropdown class="nav-item">
+          <button
+            class="btn btn-outline-light"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            {{ username }}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button (click)="goToUserProfile()" ngbDropdownItem>Profile</button>
+            <button (click)="logout()" ngbDropdownItem>Logout</button>
+          </div>
+        </div>
+        <!-- Displays the login and register buttons if user is not logged in -->
+        <ng-container *ngIf="!isLoggedIn" class="nav-item">
+          <a class="nav-item nav-link" routerLink="/login">Login</a>
+          <a class="nav-item nav-link" routerLink="/register">Register</a>
+        </ng-container>
+      </div>
+    </div>
+  </nav>
+</header>

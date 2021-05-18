@@ -1,0 +1,60 @@
+<form
+  [formGroup]="forgotForm"
+  (ngSubmit)="forgotPassword()"
+  class="forgot-form"
+>
+  <h1 class="mb-3">Forgot your password?</h1>
+  <p class="mb-3 font-weight-bold text-muted">
+    Enter the email associated with your account. You will receive an email with
+    a link and a token in order to reset your password.
+  </p>
+  <!-- Success alert -->
+  <div
+    *ngIf="!this.isError && this.message.length > 0"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    <strong>{{ this.message }}</strong> Check your inbox/spam for an email from
+    goodcookieapp@gmail.com!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- Error alert -->
+  <div
+    *ngIf="this.isError && this.message.length > 0"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong>{{ this.message }}</strong> Please try again. Don't have an account?
+    <a routerLink="/register">Register</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- Email input -->
+  <label for="inputEmail" class="sr-only">Email</label>
+  <input
+    type="text"
+    [formControlName]="'email'"
+    id="inputEmail"
+    class="form-control bottom"
+    placeholder="Email"
+    required="true"
+  />
+  <!-- Validate input -->
+  <span
+    *ngIf="!forgotForm.get('email').valid && forgotForm.get('email').touched"
+    class="text-danger"
+  >
+    Please provide a valid Email.
+  </span>
+
+  <button
+    class="btn btn-lg btn-primary btn-block"
+    type="submit"
+    [disabled]="forgotForm.invalid"
+  >
+    Submit
+  </button>
+</form>
